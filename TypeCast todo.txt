@@ -1,0 +1,74 @@
+Stuff to do next:
+
+
+---------- Game page ------------------------------------------------------------------------------
+
+Posotions aren't always calculated/displayed correctly. Why?
+When this player's timer zeros, it stops refreshing the player data...   but what if other players are lagging a second behind and you don't have their data yet? Our protocol isn't really set up correctly to handle this because if this player's timer reaches zero (because not everyone finished), he calls sendFinish(), which prevents the player from receiving any further updates from the server (I think (don't know: didn't write it)... it certainly seems to). So you'd probably have to chang that.
+Also, perhaps the position calculation just isn't correct for the end-of-game situation. At the end, all that should matter is each player's time. So take a look at that.
+Right now, though, sometimes you end up with two players in the same position (ex: "2nd place").
+
+
+BUG: if user disconnects and then reconnects, the game starts over from og clock time... it's not right.
+
+
+(THIS MAY HAVE BEEN FIXED ALREADY...)
+BUG: The game was crashing when I mistyped the last word, which was just a '}' in this particular case.
+
+
+BUG: if you're on the last character of the entire code, and the user presses tab, don't allow shit to go out of bounds.
+
+
+(THIS MAY HAVE BEEN FIXED ALREADY...)
+cursor pos issue when mistake on 1-char words: mistake should move cursor to right side (class = cursorEnd)  
+
+
+some erroneous tabs seem to still be counting as finished characters. When I mash the keys, seems like tabs + possibly something else is getting through. It's not major, but there is something there. Use this for debugging (place in render() ):  
+{this.numCompletedChars + "  :  " + this.numTypedChars + "  (there are " + this.raceCodeStr.length + " in total"}
+
+
+address the BLAH commented stuff in game.js
+
+
+
+
+
+------- Luxuries (time permitting) ----------
+
+resize #codebox font-size based on the length of longest line in the raceCodeStr. make the frst word of the str the length and then read that and use it to style the thing, and then discard the first two 'words' of the thing you should be good.
+
+
+add position coment to Results section that appears once you finish the game.
+
+
+lobby.js: make the name ' s <-- don't put the S if usename ends in 's'
+
+
+use this as the bg color for the entire thing? 
+background: rgba(0,0,0,0.3);
+
+
+remove left and right  borders from profile table for media query: 600px
+
+
+add accuracy to the profile page's stats (also will need to be stored in Firebase)
+
+
+paging system for profile.js (right now, it shows only your latest 10 results). Make it so you can page through all of them, 10 at a time.
+
+
+Make it so you can type errors beyond the current word (!). Let's just cap it at 10 characters.
+How are they doing this? It seems like they're just storing the entire thing as one big string and doing it all as just individual characters... my god, maybe that's the way. Would be simpler, ..waaaay simpler, no?
+
+
+Thought on how this thing should be drawing the output:
+Instead of styling by querying the dom, should I just insert the chars/words back into this.state.raceCodeHTML and let React redraw the page?
+If you stick with the DOM, maybe make use of template literals when constructing raceCodeHTML:
+	ex: 
+	var html = `
+				  <div>
+				    <span>Some HTML here</span>
+				  </div>
+				`;
+	
+	(note much later on: not sure where I was going with this one...)
