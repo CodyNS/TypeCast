@@ -71,4 +71,19 @@ If you stick with the DOM, maybe make use of template literals when constructing
 				  </div>
 				`;
 	
-	(note much later on: not sure where I was going with this one...)
+NOTE from much later on: not sure where I was going with this one...)
+
+
+
+
+
+
+------ When you want to deploy, you have to do this (amongst other things):
+
+Frontend/src/socket.js
+	> change line 9's  this.socket = SocketIOClient('http://localhost:5000/');
+	  to the real host address (comments in there give example)
+
+GamingMS/Config/redis.js
+	> change line 6's  const HOST = "localhost";  
+	  to the real host address (commented example in there)
